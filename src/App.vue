@@ -14,8 +14,14 @@
       <button @click="incremento" class="btn btn-success">+</button>
       <div v-show="comprobar">No está permitido el número 0</div>
     </div>
+    <div>
+      <h4>Array de datos externos(local)</h4>
+      {{ unDato }}
+    </div>
   </div>
 </template>
+
+<!-- ******************************************************************** -->
 
 <script setup>
   import { ref, computed } from 'vue';
@@ -40,7 +46,11 @@
 
     return contador.value === 0;
   });
+  import { misDatos } from "./datos.js";
+  const unDato = misDatos[2];
 </script>
+
+<!-- ********************************************************************** -->
 
 <style lang="css" scoped>
   .marron {
