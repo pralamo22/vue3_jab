@@ -1,47 +1,55 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <h1 v-bind:style="miColor"> Hola, soy {{ miNombre }} y {{ mensaje }} </h1>
+  <h2 v-bind:class="miClase">Hola, soy {{ miNombre }} y {{ mensaje }}</h2>
+  <div class="text-center">
+    <button class="btn btn-primary text-center" v-on:click="saludar">Saludar</button>
+  </div>
+  <br>
+  <div class="text-center">
+    <h4>Contador con variables reactivas</h4>
+    <br>
+    <div>
+      <button @click="decremento" class="btn btn-danger">-</button>
+      <span id="contador">{{ contador }}</span>
+      <button @click="incremento" class="btn btn-success">+</button>
+      <div v-show="comprobar">No está permitido el número 0</div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script setup>
+  import { ref, computed } from 'vue';
+  const miNombre = "Pablo";
+  const mensaje = "sigo vivo";
+  const miColor = "color:green; font-size:3em";
+  const miClase = "marron";
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+  const saludar = () => {
+    console.log("Hola Pablo");
+    alert("Hola Pablo");
+  };
+  const contador = ref(0);
+  const decremento = () => {
+    contador.value--;
+  };
+  const incremento = () => {
+    contador.value++;
+  };
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  const comprobar = computed(() => {
+
+    return contador.value === 0;
+  });
+</script>
+
+<style lang="css" scoped>
+  .marron {
+    color: brown;
+    font-size: 3em;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  #contador {
+    padding: 0 10px;
+    font-size: xx-large
   }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
